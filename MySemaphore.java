@@ -10,10 +10,11 @@ public class MySemaphore {
 		availableTickets++;
 		if (availableTickets > MAX_TICKETS)
 			availableTickets = MAX_TICKETS;
-		notifyAll();
+		notify();
 	}
-	public synchronized void down() { 
-		while (availableTickets <= 0) {
+	public synchronized void down(long Time) { 
+		if (availableTickets <= 0) {
+			System.out.println((double)(Time)/1000+"car enter to  waiting list, thread id:"+Thread.currentThread().getId());
 			try {
 				wait();
 			} catch (Exception e) {}		
